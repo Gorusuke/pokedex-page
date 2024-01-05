@@ -1,0 +1,135 @@
+.card {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  perspective: 2500px;
+  margin: 0 50px;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s;
+  position: absolute;
+  /* width: 100%; */
+  z-index: -1;
+}
+
+.filter-bar {
+  width: 20%;
+  border: 2px solid rgb(20, 19, 19);
+  position: absolute;
+  right: 11vh;
+  top: 5vh;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+  box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+}
+
+.wrapper::before,
+.wrapper::after {
+  content: "";
+  opacity: 0;
+  width: 100%;
+  height: 80px;
+  transition: all 0.5s;
+  position: absolute;
+  left: 0;
+}
+.wrapper::before {
+  top: 0;
+  height: 100%;
+  background-image: linear-gradient(
+    to top,
+    transparent 46%,
+    rgba(12, 13, 19, 0.5) 68%,
+    rgba(12, 13, 19) 97%
+  );
+}
+.wrapper::after {
+  bottom: 0;
+  opacity: 1;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 46%,
+    rgba(12, 13, 19, 0.5) 68%,
+    rgba(12, 13, 19) 97%
+  );
+}
+
+.card:hover .wrapper::before,
+.wrapper::after {
+  opacity: 1;
+}
+
+.card:hover .wrapper::after {
+  height: 120px;
+}
+.pokemon-name {
+  width: 100%;
+  position: relative;
+  top: 90px;
+  transition: transform 0.5s;
+  color: black;
+}
+
+.second-img {
+  width: 80%;
+  opacity: 0;
+  transition: all 0.5s;
+  position: absolute;
+  z-index: -1;
+}
+
+.card:hover .second-img {
+  opacity: 1;
+  transform: translate3d(0%, -30%, 100px);
+}
+
+.button {
+  border: none;
+}
+
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vh;
+}
+
+.detail-inner {
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 5vh;
+}
+
+.chart-container {
+  position: relative;
+  height: 55.5vh;
+  width: 60vh;
+  margin-left: 2vh;
+}
+
+.pokemon-image {
+  margin-right: 2vh;
+}
+
+.shiny-button {
+  width: 6vh;
+  height: 6vh;
+}
+
+.type {
+  position: relative;
+  right: 48vh;
+  margin-top: 5px;
+}
