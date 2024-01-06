@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { firstLetterUpperCase } from "../utils/utils";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PokemonsProps, PokemonProps } from "../types";
 
 const Pokemon = ({ pokemon }: { pokemon: PokemonsProps }) => {
   const [onePokemon, setOnePokemon] = useState({} as PokemonProps);
   const { url } = pokemon;
-  const navigate = useNavigate();
   const getPokemon = async (url: string) => {
     const res = await axios.get(url);
     const { data } = res;
