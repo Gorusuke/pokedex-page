@@ -14,9 +14,7 @@ const PokemonDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [pokemonDetail, setPokemonsDetail] = useState<
-    PokemonProps | undefined
-  >();
+  const [pokemonDetail, setPokemonsDetail] = useState({} as PokemonProps);
   const [images, setImages] = useState<{
     frontImage: string;
     frontShiny: string;
@@ -27,7 +25,7 @@ const PokemonDetail = () => {
   const [pokemonTypesWeakness, setPokemonsTypesWeakness] = useState<any>();
 
   const getStatsAndDetails = (pokemon: PokemonProps) => {
-    const stats = pokemon?.stats?.reduce(
+    const stats = pokemon.stats.reduce(
       (acc: StatsPropsModified[], cur: StatsProps) => {
         acc.push({ stat: cur.base_stat, name: cur.stat.name });
         return acc;
@@ -35,8 +33,8 @@ const PokemonDetail = () => {
       []
     );
     const frontImage =
-      pokemon?.sprites?.other["official-artwork"].front_default;
-    const frontShiny = pokemon?.sprites?.other["official-artwork"].front_shiny;
+      pokemon.sprites.other["official-artwork"].front_default;
+    const frontShiny = pokemon.sprites.other["official-artwork"].front_shiny;
 
     setImages({ frontImage, frontShiny });
     setPokemonsStats(stats);
@@ -78,35 +76,36 @@ const PokemonDetail = () => {
     getTypes(pokemon);
   };
 
+  console.log(number)
+
   useEffect(() => {
-    console.log(number)
     getPokemonDetail(number!);
   }, []);
   return (
     <>
-      {pokemonDetail?.name && (
+      {!Boolean(Object.keys(pokemonDetail).length) && <p>Loading...</p> }
+      {Boolean(Object.keys(pokemonDetail).length) && (
         <section className="detail-container">
-          <h1>{firstLetterUpperCase(pokemonDetail?.name)}</h1>
+          <h1>{firstLetterUpperCase(pokemonDetail.name)}</h1>
           <section className="detail-container detail-inner">
             <img src={showImage ? images.frontImage : images.frontShiny} className="pokemon-image" />
-            {pokemonStats?.length > 0 && (
+            {pokemonStats.length > 0 && (
               <StatsChart pokemonStats={pokemonStats} />
             )}
           </section>
           <section>
             <div className="type">
               <label>Type</label>
-
-              {pokemonTypes.map((pokemonType: string) => (
-                <img src={pokemonType} width={30} alt={pokemonType} />
+              {pokemonTypes.map((pokemonType: string, index: string) => (
+                <img key={pokemonType + index} src={pokemonType} width={30} alt={pokemonType} />
               ))}
             </div>
 
             <div className="type">
               <label>Weakness</label>
               {pokemonTypesWeakness &&
-                pokemonTypesWeakness?.map((pokemonWeakness: string) => (
-                  <img src={pokemonWeakness} width={30} alt={pokemonWeakness} />
+                pokemonTypesWeakness.map((pokemonWeakness: string, index: string) => (
+                  <img key={pokemonWeakness + index} src={pokemonWeakness} width={30} alt={pokemonWeakness} />
                 ))}
             </div>
           </section>

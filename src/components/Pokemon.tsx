@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Card } from "react-bootstrap";
 import { firstLetterUpperCase } from "../utils/utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { PokemonsProps, PokemonProps } from "../types";
 
 const Pokemon = ({ pokemon }: { pokemon: PokemonsProps }) => {
-  const [onePokemon, setOnePokemon] = useState<PokemonProps | undefined>();
+  const [onePokemon, setOnePokemon] = useState({} as PokemonProps);
   const { url } = pokemon;
   const navigate = useNavigate();
   const getPokemon = async (url: string) => {
@@ -23,16 +23,12 @@ const Pokemon = ({ pokemon }: { pokemon: PokemonsProps }) => {
     }
   }, [pokemon]);
 
-  const goToDetail = (onePokemon: PokemonProps) => {
-    navigate(`/pokemon-detail/${onePokemon.order}`, { state: onePokemon });
-  };
   return (
     <>
-      {onePokemon?.name && (
-        <Button
-          variant="outline-info"
-          onClick={() => goToDetail(onePokemon)}
+      {Boolean(Object.keys(onePokemon).length) && (
+        <Link
           className="button"
+          to={`/pokemon-detail/${onePokemon.id}`}
         >
           <Card style={{ width: "18rem" }} className="m-3 card wrapper">
             {/* // m4 big screen */}
@@ -50,7 +46,7 @@ const Pokemon = ({ pokemon }: { pokemon: PokemonsProps }) => {
               {firstLetterUpperCase(onePokemon?.name)}
             </Card.Title>
           </Card>
-        </Button>
+        </Link>
       )}
     </>
   );

@@ -38,7 +38,7 @@ const PokemonList = () => {
       />
       <section className="d-flex flex-wrap">
         {pokemonToList.map((pokemon: PokemonsProps) => (
-          <Pokemon pokemon={pokemon} />
+          <Pokemon key={pokemon.name} pokemon={pokemon} />
         ))}
       </section>
     </>
